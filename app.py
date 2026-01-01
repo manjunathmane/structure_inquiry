@@ -1,41 +1,39 @@
 import sys
 
-def register_courses(student_name, courses):
-    return {
-        "student_name": student_name,
-        "courses": courses
-    }
+def calculate_average(m1, m2, m3):
+    return (m1 + m2 + m3) / 3
 
-def get_course_details():
-    if len(sys.argv) < 4 or len(sys.argv) % 2 != 0:
-        print("Usage: python app.py <student_name> <course1> <credits1> <course2> <credits2> ...")
+def get_student_details():
+    if len(sys.argv) != 5:
+        print("Usage: python app.py <student_name> <m1> <m2> <m3>")
         sys.exit(1)
 
-    student_name = sys.argv[1]
-    courses = []
+    name = sys.argv[1]
+    m1 = float(sys.argv[2])
+    m2 = float(sys.argv[3])
+    m3 = float(sys.argv[4])
 
-    args = sys.argv[2:]
+    avg = calculate_average(m1, m2, m3)
 
-    for i in range(0, len(args), 2):
-        course_name = args[i]
-        credits = int(args[i + 1])
-        courses.append({
-            "course_name": course_name,
-            "credits": credits
-        })
+    return {
+        "name": name,
+        "m1": m1,
+        "m2": m2,
+        "m3": m3,
+        "average": avg
+    }
 
-    return register_courses(student_name, courses)
+def display_student(student):
+    print("Student Result")
+    print("Name:", student["name"])
+    print("Marks:", student["m1"], student["m2"], student["m3"])
+    print("Average:", student["average"])
 
-def display_courses(data):
-    print("Course Registration Details")
-    print("Student Name:", data["student_name"])
-
-    for course in data["courses"]:
-        print("Course:", course["course_name"], "| Credits:", course["credits"])
+    if student["average"] >= 50:
+        print("Result: Pass")
+    else:
+        print("Result: Fail")
 
 if __name__ == "__main__":
-    registration = get_course_details()
-    display_courses(registration)
-
-
-    
+    student = get_student_details()
+    display_student(student)

@@ -1,4 +1,4 @@
-from daily_calorie import calculate_daily_calories, calorie_status
+from app import calculate_daily_calories, calorie_status
 
 def test_calorie_calculation():
     age = 20

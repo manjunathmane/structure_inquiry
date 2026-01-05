@@ -1,45 +1,24 @@
 import sys
 
-def register_courses(student_name, courses):
-    return {
-        "student_name": student_name,
-        "courses": courses
-    }
+if len(sys.argv) != 4:
+    print("Usage: python app.py <price> <discount> <quantity>")
+    sys.exit(1)
 
-def get_course_details():
-    if len(sys.argv) < 4 or len(sys.argv) % 2 != 0:
-        # Print usage ONLY when running as a script
-        if __name__ == "__main__":
-            print("Invalid arguments.")
-            print("Usage: python app.py <student_name> <course1> <credits1> <course2> <credits2> ...")
-        return None
+price = float(sys.argv[1])
+discount = float(sys.argv[2])
+quantity = int(sys.argv[3])
 
-    student_name = sys.argv[1]
-    courses = []
-    args = sys.argv[2:]
+total_price = price * quantity
+discount_amount = total_price * discount / 100
+final_price = total_price - discount_amount
 
-    for i in range(0, len(args), 2):
-        try:
-            courses.append({
-                "course_name": args[i],
-                "credits": int(args[i + 1])
-            })
-        except ValueError:
-            print("Credits must be numeric.")
-            return None
+print(f"Price per item: {price}")
+print(f"Quantity: {quantity}")
+print(f"Discount: {discount}%")
 
-    return register_courses(student_name, courses)
-
-def display_courses(data):
-    if not data:
-        return
-
-    print("Course Registration Details")
-    print("Student Name:", data["student_name"])
-
-    for course in data["courses"]:
-        print(f"Course: {course['course_name']} | Credits: {course['credits']}")
-
-if __name__ == "__main__":
-    registration = get_course_details()
-    display_courses(registration)
+if final_price > 0:
+    print(f"Final Price: {final_price}")
+elif final_price == 0:
+    print("Final price is zero")
+else:
+    print("Invalid calculation")

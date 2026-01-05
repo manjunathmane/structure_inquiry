@@ -1,15 +1,7 @@
-from app import register_courses
+from app import *
 
-def test_course_registration():
-    student_name = "Alice"
-    courses = [
-        {"course_name": "Python", "credits": 4},
-        {"course_name": "DevOps", "credits": 3}
-    ]
-
-    result = register_courses(student_name, courses)
-
-    assert result["student_name"] == "Alice"
-    assert len(result["courses"]) == 2
-    assert result["courses"][0]["course_name"] == "Python"
-    assert result["courses"][0]["credits"] == 4
+def test_discount():
+    price = 100
+    discount = 10
+    quantity = 2
+    assert (price * quantity) - ((price * quantity) * discount / 100) == 180

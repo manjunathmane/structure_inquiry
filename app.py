@@ -1,17 +1,16 @@
-import sys
-
 def calculate_average(m1, m2, m3):
     return (m1 + m2 + m3) / 3
 
 def get_student_details():
-    if len(sys.argv) != 5:
-        print("Usage: python app.py <student_name> <m1> <m2> <m3>")
-        sys.exit(1)
+    name = input("Enter student name: ")
 
-    name = sys.argv[1]
-    m1 = float(sys.argv[2])
-    m2 = float(sys.argv[3])
-    m3 = float(sys.argv[4])
+    try:
+        m1 = float(input("Enter marks 1: "))
+        m2 = float(input("Enter marks 2: "))
+        m3 = float(input("Enter marks 3: "))
+    except ValueError:
+        print("Marks must be numeric values")
+        return None
 
     avg = calculate_average(m1, m2, m3)
 
@@ -24,7 +23,11 @@ def get_student_details():
     }
 
 def display_student(student):
-    print("Student Result")
+    if student is None:
+        return
+
+    print("\nStudent Result")
+    print("----------------")
     print("Name:", student["name"])
     print("Marks:", student["m1"], student["m2"], student["m3"])
     print("Average:", student["average"])
